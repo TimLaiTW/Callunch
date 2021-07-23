@@ -1,25 +1,53 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export default class App extends Component{
+  constructor(){
+    super();
+    this.state = {
+      viewCompleted: false,
+      newOrder: {
+        'name': '',
+        'order': '',
+        completed: false
+      },
+      orderList: [],
+    };
+  }
 
-export default App;
+  async componentDidMount() {
+    try {
+      const result = await fetch('http://localhost:8000/api/orders/');
+      const orderList = await result.json();
+      this.setState({
+        orderList
+      });
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
+  renderOrders = () => {
+    const { orderList, viewCompleted } = this.state;
+    const filteredOrder = orderList.filter(
+      order => order.completed === viewCompleted
+    );
+    
+    return filteredOrder.map(order => (
+      <li
+        key={ order.id }>
+          <span>{ order.name }: { order.order }</span>
+        </li>
+    ))
+  }
+
+  render(){
+    return (
+      <div>
+        <h1>Order Lists</h1>
+        { this.renderOrders() }
+      </div>
+    )
+  }
+
+}
