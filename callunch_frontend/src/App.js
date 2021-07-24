@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-
+import CompleteBtnGroup from './components/CompleteBtnGroup';
+import RenderOrders from './components/RenderOrders';
 export default class App extends Component{
   constructor(){
     super();
@@ -27,27 +28,22 @@ export default class App extends Component{
     }
   }
 
-  renderOrders = () => {
-    const { orderList, viewCompleted } = this.state;
-    const filteredOrder = orderList.filter(
-      order => order.completed === viewCompleted
-    );
-    
-    return filteredOrder.map(order => (
-      <li
-        key={ order.id }>
-          <span>{ order.name }: { order.order }</span>
-        </li>
-    ))
+  displayCompleted = status => {
+    this.setState({
+      viewCompleted: status
+    });
   }
 
   render(){
     return (
       <div>
         <h1>Order Lists</h1>
-        { this.renderOrders() }
+        <CompleteBtnGroup 
+          displayCompleted={this.displayCompleted}/>
+        <RenderOrders 
+          viewCompleted={this.state.viewCompleted}
+          orderList={this.state.orderList}/>
       </div>
     )
   }
-
 }
