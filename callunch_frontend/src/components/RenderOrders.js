@@ -8,7 +8,9 @@ export default function RenderOrders(props) {
     return filteredOrder.map(order => (
         <li
           key={ order.id }>
-            <span>{ order.name }: { order.order }: { order.completed }</span>
+            <span>Name: { order.name } </span>
+            <span>Order: { order.order }</span>
+            <button onClick={()=>{props.DeleteOrder(order)}}>Delete</button>
           </li>
     ))
 }

@@ -42,15 +42,26 @@ export default class App extends Component{
 
   AddNewOrder = order => {
     this.viewNewOrderForm();
-    // axios.delete('http://localhost:8000/api/orders/1')
     if (order.id) {
       axios
-        .put("http://localhost:8000/api/orders/${order.id}/", order)
+        .put(`http://localhost:8000/api/orders/${order.id}/`, order)
       return;  
     }
     axios
       .post("http://localhost:8000/api/orders/", order)
   };
+
+  DeleteOrder = order => {
+    if(order.id) {
+      axios.delete(`http://localhost:8000/api/orders/${order.id}`);
+    }
+  }
+
+  // EditOrder = order => {
+  //   if(order.id) {
+  //     axios.put(`http://localhost:8000/api/orders/${order.id}/`, order)
+  //   }
+  // }
 
   createOrder = () => {
     this.setState({
@@ -61,13 +72,14 @@ export default class App extends Component{
     const { viewCompleted, viewAddOrder, orderList } = this.state;
     return (
       <div>
-        <h1>Order Lists</h1>
+        <h1>CALLUNCH</h1>
         <button onClick={this.createOrder}>Add new orders</button>
         <CompleteBtnGroup 
           displayCompleted={this.displayCompleted}/>
         <RenderOrders 
           viewCompleted={viewCompleted}
-          orderList={orderList}/>
+          orderList={orderList}
+          DeleteOrder={this.DeleteOrder}/>
         { viewAddOrder ? 
           <NewOrderForm 
             onSubmit={this.AddNewOrder}/>
