@@ -8,7 +8,7 @@ export default function RenderOrders(props) {
     return filteredOrder.map(order => (
         <li
           key={ order.id }>
-            <span>{ order.name }: { order.order }</span>
+            <span>{ order.name }: { order.order }: { order.completed }</span>
           </li>
     ))
 }
