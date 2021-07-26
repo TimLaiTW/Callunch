@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 export default function CompleteBtnGroup(props) {
     return (
-        <div>
+        <div className="complete_btn_group">
           <button 
             onClick={() => props.displayCompleted(true)}>Complete
           </button>

@@ -51,7 +51,7 @@ export default class NewOrderForm extends Component {
                         name="completed"
                         value={completed}
                         onChange={this.handleChange}/>
-                    <input type="submit" value="Submit" />
+                    <button type="submit">Submit</button>
                 </form>
                 
             </div>

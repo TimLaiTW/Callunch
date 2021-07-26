@@ -3,6 +3,7 @@ import './App.css';
 import CompleteBtnGroup from './components/CompleteBtnGroup';
 import RenderOrders from './components/RenderOrders';
 import NewOrderForm from './components/NewOrderForm';
+import Title from './components/Title';
 import axios from "axios";
 export default class App extends Component{
   constructor(){
@@ -16,7 +17,7 @@ export default class App extends Component{
     this.viewNewOrderForm = this.viewNewOrderForm.bind(this);
   }
 
-  async componentDidUpdate() {
+  async componentDidMount() {
     try {
       const result = await fetch("http://localhost:8000/api/orders/");
       const orderList = await result.json();
@@ -68,18 +69,23 @@ export default class App extends Component{
       viewAddOrder: !this.state.viewAddOrder
     });
   }
+  
   render(){
     const { viewCompleted, viewAddOrder, orderList } = this.state;
     return (
       <div>
-        <h1>CALLUNCH</h1>
-        <button onClick={this.createOrder}>Add new orders</button>
-        <CompleteBtnGroup 
-          displayCompleted={this.displayCompleted}/>
+        <Title />
+        <div className="manage_order_button_group">
+          <button className="add_new_order_btn" onClick={this.createOrder}>Add new orders</button>
+          <CompleteBtnGroup 
+            displayCompleted={this.displayCompleted}/>
+        </div>
+        <div>
         <RenderOrders 
           viewCompleted={viewCompleted}
           orderList={orderList}
           DeleteOrder={this.DeleteOrder}/>
+        </div>
         { viewAddOrder ? 
           <NewOrderForm 
             onSubmit={this.AddNewOrder}/>
