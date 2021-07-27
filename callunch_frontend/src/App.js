@@ -11,50 +11,78 @@ export default class App extends Component{
     this.state = {
       viewCompleted: false,
       viewAddOrder: false,
+      ModifiedOrder: false,
       orderList: [],
     };
-    this.displayCompleted = this.displayCompleted.bind(this);
+    this.apiUrl = "http://localhost:8000/api/orders/";
+    this.viewCompletedList = this.viewCompletedList.bind(this);
     this.viewNewOrderForm = this.viewNewOrderForm.bind(this);
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    console.log('did mount')
+    this.mounted = true;
     try {
-      const result = await fetch("http://localhost:8000/api/orders/");
-      const orderList = await result.json();
-      this.setState({
-        orderList
-      });
+      this.fetchData();
     } catch(e) {
       console.log(e);
     }
   }
 
-  displayCompleted(status){
+  async fetchData() {
+    fetch(this.apiUrl)
+    .then(response => response.json())
+    .then((orderList) => {
+      if(this.mounted){
+        this.setState({orderList})
+      }
+    });
+    console.log('fetch data')
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
+  viewCompletedList(status){
     this.setState({
       viewCompleted: status
     });
   }
 
-  viewNewOrderForm(){
+  viewNewOrderForm() {
     this.setState({
       viewAddOrder: !this.state.viewAddOrder
     });
+    console.log('new order form ')
   }
 
   AddNewOrder = order => {
     this.viewNewOrderForm();
     if (order.id) {
       axios
-        .put(`http://localhost:8000/api/orders/${order.id}/`, order)
-      return;  
+        .put(this.apiUrl + `${order.id}/`, order)
     }
-    axios
-      .post("http://localhost:8000/api/orders/", order)
+    else{
+      axios
+        .post(this.apiUrl, order);
+    }
+    this.setState({ModifiedOrder: true});
+    console.log('added new order')
   };
 
   DeleteOrder = order => {
     if(order.id) {
-      axios.delete(`http://localhost:8000/api/orders/${order.id}`);
+      axios.delete(this.apiUrl + `${order.id}`);
+      this.setState({ModifiedOrder: true});
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if(prevState.ModifiedOrder !== this.state.ModifiedOrder){
+      console.log('component did update')
+      this.fetchData();
+      this.setState({ModifiedOrder: false});
     }
   }
 
@@ -63,22 +91,17 @@ export default class App extends Component{
   //     axios.put(`http://localhost:8000/api/orders/${order.id}/`, order)
   //   }
   // }
-
-  createOrder = () => {
-    this.setState({
-      viewAddOrder: !this.state.viewAddOrder
-    });
-  }
   
   render(){
     const { viewCompleted, viewAddOrder, orderList } = this.state;
+    console.log(orderList);
     return (
       <div>
         <Title />
         <div className="manage_order_button_group">
-          <button className="add_new_order_btn" onClick={this.createOrder}>Add new orders</button>
+          <button className="add_new_order_btn" onClick={this.viewNewOrderForm}>Add new orders</button>
           <CompleteBtnGroup 
-            displayCompleted={this.displayCompleted}/>
+            viewCompletedList={this.viewCompletedList}/>
         </div>
         <div>
         <RenderOrders 
