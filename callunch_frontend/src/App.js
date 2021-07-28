@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import CompleteBtnGroup from './components/CompleteBtnGroup';
+import MainBtnGroup from './components/MainBtnGroup';
 import RenderOrders from './components/RenderOrders';
 import NewOrderForm from './components/NewOrderForm';
 import Title from './components/Title';
@@ -20,7 +20,6 @@ export default class App extends Component{
   }
 
   componentDidMount() {
-    console.log('did mount')
     this.mounted = true;
     try {
       this.fetchData();
@@ -37,7 +36,6 @@ export default class App extends Component{
         this.setState({orderList})
       }
     });
-    console.log('fetch data')
   }
 
   componentWillUnmount() {
@@ -54,7 +52,6 @@ export default class App extends Component{
     this.setState({
       viewAddOrder: !this.state.viewAddOrder
     });
-    console.log('new order form ')
   }
 
   AddNewOrder = order => {
@@ -68,7 +65,6 @@ export default class App extends Component{
         .post(this.apiUrl, order);
     }
     this.setState({ModifiedOrder: true});
-    console.log('added new order')
   };
 
   DeleteOrder = order => {
@@ -80,7 +76,6 @@ export default class App extends Component{
 
   componentDidUpdate(prevProps, prevState){
     if(prevState.ModifiedOrder !== this.state.ModifiedOrder){
-      console.log('component did update')
       this.fetchData();
       this.setState({ModifiedOrder: false});
     }
@@ -94,26 +89,24 @@ export default class App extends Component{
   
   render(){
     const { viewCompleted, viewAddOrder, orderList } = this.state;
-    console.log(orderList);
     return (
       <div>
         <Title />
-        <div className="manage_order_button_group">
-          <button className="add_new_order_btn" onClick={this.viewNewOrderForm}>Add new orders</button>
-          <CompleteBtnGroup 
-            viewCompletedList={this.viewCompletedList}/>
-        </div>
-        <div>
-        <RenderOrders 
-          viewCompleted={viewCompleted}
-          orderList={orderList}
-          DeleteOrder={this.DeleteOrder}/>
+        <div className="manage_button_group">
+          <MainBtnGroup 
+            viewCompletedList={this.viewCompletedList}
+            viewNewOrderForm={this.viewNewOrderForm}/>
         </div>
         { viewAddOrder ? 
           <NewOrderForm 
             onSubmit={this.AddNewOrder}/>
           : null
         }
+        <RenderOrders 
+          viewCompleted={viewCompleted}
+          orderList={orderList}
+          DeleteOrder={this.DeleteOrder}/>
+        
       </div>
     )
   }

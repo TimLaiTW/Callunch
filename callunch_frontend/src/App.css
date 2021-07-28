@@ -29,6 +29,10 @@ button:hover {
   background-color: var(--hover-color);
 }
 
+label {
+  font-family: var(--title-font-family);
+  font-weight: 200;
+}
 .title_wrapper {
   text-align: center;
   padding: 5%;
@@ -44,14 +48,14 @@ button:hover {
   height: auto;
   padding-right: 2%;
 }
-.manage_order_button_group {
-  display: inline-block;
-  width: 50%;
-  margin-left: 40%;
+.manage_button_group {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.complete_btn_group {
-  float: left;
+.show_complete_btn {
+  /* float: left; */
 }
 
 .add_new_order_btn {
@@ -60,4 +64,57 @@ button:hover {
 
 li {
   list-style-type: none;
+}
+
+.order-wrapper {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+.order-name {
+  
+}
+
+.order-detail {
+  margin-left: 10%;
+}
+
+.order-delete-btn {
+  margin-left: 10%;
+  cursor: pointer;
+}
+
+.new-order-card {
+  position: absolute;
+  max-height: 20rem;
+  margin: 1rem auto 0 71%;
+  border-radius: 0.5rem;
+  width: 25%;
+  background-color: rgba(255,113,134,0.8)
+  ;
+  text-align: center;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 2rem 1rem 2rem;
+}
+
+input::placeholder {
+  font-family: var(--title-font-family);
+  font-weight: 200;
+  font-size: 18px; 
+}
+input {
+  font-size: 1rem;
+  width: 100%;				
+  height: auto;
+  padding: 0.75rem 1.25rem;
+  border-radius: 2rem;
+  border: none;
+  outline: none;
 }

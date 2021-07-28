@@ -31,26 +31,26 @@ export default class NewOrderForm extends Component {
     render() {
         const {name, order, completed} = this.state.newOrder;
         return (
-            <div>
+            <div className="new-order-card">
                 <form onSubmit={this.handleSubmit}>
-                    <label>Name:</label>
-                    <input 
-                        type="text"
-                        name="name"
-                        value={name}
-                        onChange={this.handleChange}/>
-                    <label>Order:</label>
-                    <input 
-                        type="text"
-                        name="order"
-                        value={order}
-                        onChange={this.handleChange}/>
-                    <label>Completed</label>
-                    <input 
-                        type="checkbox"
-                        name="completed"
-                        value={completed}
-                        onChange={this.handleChange}/>
+                    <div className="input-group">
+                        <label hidden>Name</label>
+                        <input 
+                            type="text"
+                            name="name"
+                            value={name}
+                            placeholder="Name"
+                            onChange={this.handleChange}/>
+                    </div>
+                    <div className="input-group">
+                        <label hidden>Order</label>
+                        <input 
+                            type="text"
+                            name="order"
+                            value={order}
+                            placeholder="Order"
+                            onChange={this.handleChange}/>
+                    </div>
                     <button type="submit">Submit</button>
                 </form>
                 
