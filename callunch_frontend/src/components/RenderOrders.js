@@ -4,21 +4,29 @@ export default function RenderOrders(props) {
     const filteredOrder = orderList.filter(
       order => order.completed === viewCompleted
     );
+    const orderDetail = filteredOrder.map(order => (
+      <tr className="order-content" key={order.id}>
+        <td className="order-name">{order.name}</td>
+        <td className="order-detail">{order.order}</td>
+        <td>
+          <button 
+            className="order-delete-btn" 
+            onClick={()=>{props.DeleteOrder(order)}}>
+              Delete
+          </button>
+        </td>
+      </tr>
+    ))
     return (
-      <div className="order-wrapper">
-        {/* <span className="order-name">Name</span>
-        <span className="order-detail">Detail</span> */}
-        {filteredOrder.map(order => (
-          <li key={ order.id }>
-            <span className="order-name">{ order.name }</span>
-            <span className="order-detail">{ order.order }</span>
-            <button 
-              className="order-delete-btn" 
-              onClick={()=>{props.DeleteOrder(order)}}>
-                Delete
-            </button>
-          </li>
-        ))}
-      </div>
+        <table className="order-table">
+          <thead className="order-head">
+            <td className="order-header">Name</td>
+            <td className="order-header">Order</td>
+            <td className="order-header"></td>
+          </thead>
+        <tbody>
+          {orderDetail}
+        </tbody>
+      </table>
     )
 }

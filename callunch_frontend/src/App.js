@@ -97,10 +97,9 @@ export default class App extends Component{
             viewCompletedList={this.viewCompletedList}
             viewNewOrderForm={this.viewNewOrderForm}/>
         </div>
-        { viewAddOrder ? 
+        { viewAddOrder &&
           <NewOrderForm 
             onSubmit={this.AddNewOrder}/>
-          : null
         }
         <RenderOrders 
           viewCompleted={viewCompleted}

@@ -51,7 +51,9 @@ export default class NewOrderForm extends Component {
                             placeholder="Order"
                             onChange={this.handleChange}/>
                     </div>
-                    <button type="submit">Submit</button>
+                    <button 
+                        className="submit-btn"
+                        type="submit">Submit</button>
                 </form>
                 
             </div>
