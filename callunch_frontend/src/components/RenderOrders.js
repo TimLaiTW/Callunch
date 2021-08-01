@@ -1,6 +1,6 @@
 import React from 'react'
 export default function RenderOrders(props) {
-    const { orderList, viewCompleted } = props;
+    const { orderList, viewCompleted, ButtonAction } = props;
     const filteredOrder = orderList.filter(
       order => order.completed === viewCompleted
     );
@@ -10,23 +10,30 @@ export default function RenderOrders(props) {
         <td className="order-detail">{order.order}</td>
         <td>
           <button 
-            className="order-delete-btn" 
-            onClick={()=>{props.DeleteOrder(order)}}>
-              Delete
+            className="order-btn" 
+            onClick={()=>{ButtonAction(order)}}>
+              {props.text}
           </button>
         </td>
       </tr>
     ))
-    return (
-        <table className="order-table">
+    const tableHead = filteredOrder.length === 0 ? 
+      null : 
+      <table className="order-table">
           <thead className="order-head">
-            <td className="order-header">Name</td>
-            <td className="order-header">Order</td>
-            <td className="order-header"></td>
+            <tr>
+              <td className="order-header">Name</td>
+              <td className="order-header">Order</td>
+              <td className="order-header"></td>
+            </tr>
           </thead>
         <tbody>
           {orderDetail}
         </tbody>
       </table>
+    return (
+      <>
+        {tableHead}
+      </>
     )
 }

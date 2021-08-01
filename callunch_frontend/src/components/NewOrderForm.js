@@ -29,7 +29,7 @@ export default class NewOrderForm extends Component {
         
     }
     render() {
-        const {name, order, completed} = this.state.newOrder;
+        const {name, order} = this.state.newOrder;
         return (
             <div className="new-order-card">
                 <form onSubmit={this.handleSubmit}>

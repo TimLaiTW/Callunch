@@ -67,6 +67,13 @@ export default class App extends Component{
     this.setState({ModifiedOrder: true});
   };
 
+  CompleteOrder = order => {
+    order.completed = true;
+    if(order.id) {
+      axios.put(`http://localhost:8000/api/orders/${order.id}/`, order)
+    }
+  }
+  
   DeleteOrder = order => {
     if(order.id) {
       axios.delete(this.apiUrl + `${order.id}`);
@@ -80,20 +87,28 @@ export default class App extends Component{
       this.setState({ModifiedOrder: false});
     }
   }
-
-  // EditOrder = order => {
-  //   if(order.id) {
-  //     axios.put(`http://localhost:8000/api/orders/${order.id}/`, order)
-  //   }
-  // }
   
   render(){
     const { viewCompleted, viewAddOrder, orderList } = this.state;
+    const currentOrderList = viewCompleted === true ?
+      <RenderOrders 
+        viewCompleted={viewCompleted}
+        orderList={orderList}
+        text='Delete'
+        ButtonAction={this.DeleteOrder}
+      /> : 
+      <RenderOrders 
+          viewCompleted={viewCompleted}
+          orderList={orderList}
+          text='Complete'
+          ButtonAction={this.CompleteOrder}
+        />
     return (
-      <div>
+      <React.Fragment>
         <Title />
         <div className="manage_button_group">
           <MainBtnGroup 
+            status={viewCompleted}
             viewCompletedList={this.viewCompletedList}
             viewNewOrderForm={this.viewNewOrderForm}/>
         </div>
@@ -101,12 +116,8 @@ export default class App extends Component{
           <NewOrderForm 
             onSubmit={this.AddNewOrder}/>
         }
-        <RenderOrders 
-          viewCompleted={viewCompleted}
-          orderList={orderList}
-          DeleteOrder={this.DeleteOrder}/>
-        
-      </div>
+        {currentOrderList}
+      </React.Fragment>
     )
   }
 }
