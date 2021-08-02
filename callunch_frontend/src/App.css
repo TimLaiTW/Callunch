@@ -86,13 +86,18 @@ label {
 
 /* New order form */
 .new-order-card {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   position: absolute;
   max-height: 20rem;
-  margin: 1rem auto 0 71%;
+  margin: 0.5rem auto 0 71%;
   border-radius: 1rem;
   width: 25%;
   background-color: var(--card-color);
   text-align: center;
+}
+
+.new-order-card:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .input-group {
@@ -130,24 +135,10 @@ td {
   width: 50%;
 }
 
-.order-head {
-  
-}
-
-thead, tr:nth-child(even){
+.order-content.false, .order-head.false {
   background-color: #FCF0BE;
 }
-.order-header {
-  
-}
 
-.order-content {
-
-}
-.order-name {
-
-}
-
-.order-detail {
-
+.order-content.true, .order-head.true {
+  background-color: rgba(255,113,134,0.1);
 }

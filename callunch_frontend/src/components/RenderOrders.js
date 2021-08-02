@@ -5,7 +5,7 @@ export default function RenderOrders(props) {
       order => order.completed === viewCompleted
     );
     const orderDetail = filteredOrder.map(order => (
-      <tr className="order-content" key={order.id}>
+      <tr className={`order-content ${viewCompleted}`} key={order.id}>
         <td className="order-name">{order.name}</td>
         <td className="order-detail">{order.order}</td>
         <td>
@@ -17,10 +17,10 @@ export default function RenderOrders(props) {
         </td>
       </tr>
     ))
-    const tableHead = filteredOrder.length === 0 ? 
+    const filteredOrderList = filteredOrder.length === 0 ? 
       null : 
       <table className="order-table">
-          <thead className="order-head">
+          <thead className={`order-head ${viewCompleted}`}>
             <tr>
               <td className="order-header">Name</td>
               <td className="order-header">Order</td>
@@ -33,7 +33,7 @@ export default function RenderOrders(props) {
       </table>
     return (
       <>
-        {tableHead}
+        {filteredOrderList}
       </>
     )
 }
