@@ -1,13 +1,14 @@
 # Callunch
 
-This ordering aid helps you to make no mistake on ordering everyone's meals in your office.
-The system stores all the data(name, order) in database and retrieve the data if needed.
+This ordering aid helps you to make no mistake on ordering everyone's meals atn your office.
 
-Show all the incompleted order list with Completed Button if the order had been completed.
+The app stores all the data(name, order) in database and retrieve the data if needed.
+
+Show all incompleted order list with Completed Button if the order had been completed.
 
 ![Cover_incompleted](/callunch_frontend/public/thumbnail/cover_incompleted.png)
 
-Review all the completed orders with Delete Button if you no longer need it.
+Review all completed orders with Delete Button if you no longer need it.
 
 ![Cover_completed](/callunch_frontend/public/thumbnail/cover_completed.png)
 
