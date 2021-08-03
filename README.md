@@ -1,6 +1,6 @@
 # Callunch
 
-This ordering system helps you to make no mistake on ordering everyone's meals in your office.
+This ordering aid helps you to make no mistake on ordering everyone's meals in your office.
 The system stores all the data(name, order) in database and retrieve the data if needed.
 
 Show all the incompleted order list with Completed Button if the order had been completed.
